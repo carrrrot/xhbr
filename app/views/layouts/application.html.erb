@@ -6,9 +6,15 @@
   <%= javascript_include_tag "application" %>
   <%= csrf_meta_tags %>
 </head>
+
 <body>
 
-<%= yield %>
+<div class="container">
+  <%= nav_bar :brand => t("hello"), :brand_link => root_path  %>
+  <div class="content">
+    <%= yield %>
+  </div>
+</div>
 
 </body>
 </html>

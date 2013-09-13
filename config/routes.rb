@@ -1,4 +1,7 @@
 Xhbr::Application.routes.draw do
+  match "login" => "wb_statuses#login"
+  get "logout" => "wb_statuses#logout"
+  resources :wb_statuses, path: "wb", only: [:show, :create]
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
@@ -48,7 +51,7 @@ Xhbr::Application.routes.draw do
 
   # You can have the root of your site routed with "root"
   # just remember to delete public/index.html.
-  # root :to => 'welcome#index'
+  root :to => 'wb_statuses#index'
 
   # See how all your routes lay out with "rake routes"
 
