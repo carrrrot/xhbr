@@ -10,7 +10,14 @@
 <body>
 
 <div class="container">
-  <%= nav_bar :brand => t("hello"), :brand_link => root_path  %>
+  <%= nav_bar :brand => t("hello"), :brand_link => root_path do %>
+    <% if logged_in? %>
+      <%= menu_group :pull => :right do %>
+        <%= menu_item t("help_us"), help_path %>
+        <%= menu_item t("logout"), logout_path %>
+      <% end %>
+    <% end %>
+  <% end %>
   <div class="content">
     <%= yield %>
   </div>

@@ -5,6 +5,7 @@ gem 'rails', '3.2.9'
 gem 'mysql2'
 gem 'twitter-bootstrap-rails'
 gem 'jquery-rails'
+gem 'weibo_2', '~> 0.1.4'
 
 # Gems used only for assets and not required
 # in production environments by default.
@@ -16,6 +17,7 @@ end
 
 group :development, :test do
 	gem 'pry'
+  gem 'pry-nav'
 	gem 'rspec-rails'
 end
 

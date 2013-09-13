@@ -1,6 +1,9 @@
 Xhbr::Application.routes.draw do
   match "login" => "wb_statuses#login"
   get "logout" => "wb_statuses#logout"
+  get "help" => "wb_statuses#help"
+  get "connect" => "wb_statuses#connect"
+  get "callback" => "wb_statuses#callback"
   resources :wb_statuses, path: "wb", only: [:show, :create]
   # The priority is based upon order of creation:
   # first created -> highest priority.

@@ -1,3 +1,5 @@
 cn:
-  hello: "你好"
+  hello: "世界你好"
   login: "登录"
+  help_us: "帮助我们"
+  logout: "登出"
