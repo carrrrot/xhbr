@@ -1,3 +1,4 @@
 class WbAccessToken < ActiveRecord::Base
-  # attr_accessible :title, :body
+  belongs_to :wb_user
+  attr_accessible :value, :expires_at
 end

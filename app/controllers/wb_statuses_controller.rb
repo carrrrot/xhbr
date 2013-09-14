@@ -3,9 +3,9 @@ class WbStatusesController < ApplicationController
 
   before_filter :check_login, except: [:login]
 
-  WeiboOAuth2::Config.api_key = ""
-  WeiboOAuth2::Config.api_secret = ""
-  WeiboOAuth2::Config.redirect_uri = ""
+  WeiboOAuth2::Config.api_key = API_KEY
+  WeiboOAuth2::Config.api_secret = API_SECRET
+  WeiboOAuth2::Config.redirect_uri = REDIRECT_URI
 
   def index
   end
@@ -27,7 +27,7 @@ class WbStatusesController < ApplicationController
   end
 
   def help
-    @user = session[:user]
+    @wb_id = session[:uid]
   end
 
   def connect
@@ -52,13 +52,18 @@ class WbStatusesController < ApplicationController
   def callback
     client = WeiboOAuth2::Client.new
     access_token = client.auth_code.get_token(params[:code].to_s)
-    session[:uid] = access_token.params["uid"]
-    session[:access_token] = access_token.token
-    session[:expires_at] = access_token.expires_at
-    # p "*" * 80 + "callback"
-    # p access_token.inspect
-    @user = client.users.show_by_uid(session[:uid].to_i)
-    session[:user] = @user
+    wb_id = session[:uid] = access_token.params["uid"]
+    token_value = session[:access_token] = access_token.token
+    expires_at = session[:expires_at] = access_token.expires_at
+    user = client.users.show_by_uid(session[:uid].to_i)
+
+    @wb_user = WbUser.where(wb_id: wb_id).first_or_initialize
+    @wb_user.name = user.name
+    # @wb_user.screen_name = user.screen_name
+
+    @wb_user.build_wb_access_token(value: token_value, expires_at: expires_at)
+    @wb_user.save!
+    # session[:user] = @user
     redirect_to help_path
   end
 end

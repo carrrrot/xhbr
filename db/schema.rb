@@ -11,12 +11,12 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130913025620) do
+ActiveRecord::Schema.define(:version => 20130914054529) do
 
   create_table "wb_access_tokens", :force => true do |t|
     t.integer  "wb_user_id", :null => false
     t.string   "value",      :null => false
-    t.datetime "expires_at", :null => false
+    t.integer  "expires_at", :null => false
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end

@@ -1,5 +1,5 @@
 require 'spec_helper'
 
-describe WbUsers do
+describe WbUser do
   pending "add some examples to (or delete) #{__FILE__}"
 end
