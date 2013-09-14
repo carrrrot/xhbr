@@ -1,3 +1,3 @@
 class WbTargetUserFrame < ActiveRecord::Base
-  # attr_accessible :title, :body
+  belongs_to :wb_target_user
 end

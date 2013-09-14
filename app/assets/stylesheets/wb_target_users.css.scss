@@ -47,3 +47,44 @@ body {
     font-size: 18px;
   }
 }
+
+@mixin clearfix {
+  *zoom: 1;
+  &:before,
+  &:after {
+    display: table;
+    content: "";
+  }
+  &:after {
+    clear: both;
+  }
+}
+
+#users-list {
+  @include clearfix;
+  list-style-type: none;
+  padding-left: 60px;
+  text-align: left;
+
+  li {
+    margin-bottom: 10px;
+    float: left;
+    width: 240px;
+    margin-right: 20px;
+    margin-bottom: 20px;
+  }
+  a {
+    display: block;
+    padding-left: 75px;
+    color: #888;
+    text-decoration: none;
+    background: 10px 10px no-repeat;
+    line-height: 70px;
+    border: solid 1px #ccc;
+    border-radius: 4px;
+    &:hover {
+      color: #666;
+      border: solid 1px #888;
+    }
+  }
+}

@@ -1,5 +1,6 @@
 class WbTargetUsersController < ApplicationController
 	include ApplicationHelper
+  include WbTargetUsersHelper
 
   before_filter :check_login, except: [:login]
 
@@ -8,6 +9,10 @@ class WbTargetUsersController < ApplicationController
   WeiboOAuth2::Config.redirect_uri = REDIRECT_URI
 
   def index
+    @wb_target_users = Rails.cache.fetch "index_target_users" do
+      # binding.pry
+      WbTargetUser.limit(6).order("followers_count desc")
+    end
   end
 
   def check_login
@@ -67,6 +72,34 @@ class WbTargetUsersController < ApplicationController
     redirect_to help_path
   end
 
-  def add_target_user
+  def create
+    pair = parse_user_url(params[:account_url])
+    wb_id = pair["wb_id"]
+    domain = pair["domain"]
+
+    @wb_target_user = WbTargetUser.where("wb_id = ? or lower(replace(domain, '.', '')) = replace(?, '.', '')", wb_id, domain).first
+
+    if !@wb_target_user
+      access_token = WbAccessToken.first # need to randomize the access_token
+      client = WeiboOAuth2::Client.new
+      client.get_token_from_hash({:access_token => access_token.value, :expires_at => access_token.expires_at}) 
+      # network issue !!!!!
+      binding.pry
+      if wb_id 
+        # api_user = client.users.show_by_uid(wb_id)
+        body = RestClient.get 'https://api.weibo.com/2/users/show.json', {:params => {:access_token => access_token.value, :uid => wb_id}}
+      elsif domain
+        # api_user = client.users.domain_show(domain)
+        body = RestClient.get 'https://api.weibo.com/2/users/domain_show.json', {:params => {:access_token => access_token.value, :domain => domain}}
+      end
+      api_user = JSON(body)
+      binding.pry
+
+      @wb_target_user = WbTargetUser.new
+      @wb_target_user.set_api_user(api_user)
+      @wb_target_user.save!
+    end
+
+    redirect_to root_path
   end
 end

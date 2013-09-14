@@ -7,10 +7,20 @@
   </div>
   <div class="try">
     <h1>添加微博账号<h1>
-    <p>复制想添加的微博账号的地址并粘贴至此</p>
-    <%= form_tag("/login", method: "post", class: "form-inline") do %>
-      <%= text_area_tag(:account_url) %>
+    <p>复制想分析的微博账号的地址并粘贴至此</p>
+    <%= form_tag(wb_target_users_path, method: "post", class: "form-inline") do %>
+      <%= text_field_tag(:account_url) %>
       <%= submit_tag(t("add"), class: "btn btn-primary btn-large") %>
     <% end %>
+  </div>
+  <div>
+    <h3>或者，瞧瞧这些……</h3>
+    <ul id="users-list">
+      <% @wb_target_users.each do |u| %>
+        <li style="background: url(<%= u.profile_img_link%>) 0 0 no-repeat; background-size: 72px;">
+          <%= link_to u.name, wb_target_user_path(u) %>
+        </li>
+      <% end %>
+    </ul>
   </div>
 </div>

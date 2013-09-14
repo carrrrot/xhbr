@@ -7,6 +7,10 @@ gem 'twitter-bootstrap-rails'
 gem 'jquery-rails'
 gem 'weibo_2', '~> 0.1.4'
 
+gem 'oauth2'
+gem 'rest-client'
+# gem 'hashie'
+
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do

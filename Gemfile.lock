@@ -1,5 +1,5 @@
 GEM
-  remote: http://ruby.taobao.org/
+  remote: https://rubygems.org/
   specs:
     actionmailer (3.2.9)
       actionpack (= 3.2.9)
@@ -154,9 +154,11 @@ DEPENDENCIES
   coffee-rails (~> 3.2.1)
   jquery-rails
   mysql2
+  oauth2
   pry
   pry-nav
   rails (= 3.2.9)
+  rest-client
   rspec-rails
   sass-rails (~> 3.2.3)
   twitter-bootstrap-rails
