@@ -9,5 +9,5 @@
  * compiled file, but it's generally better to create a new file per style scope.
  *
  *= require twitter-bootstrap-static/bootstrap
- *= require wb_statuses.css
+ *= require wb_target_users.css
  */

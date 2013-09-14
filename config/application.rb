@@ -67,3 +67,6 @@ module Xhbr
 end
 
 PASSWORD = 'a'
+API_KEY = ''
+API_SECRET = ''
+REDIRECT_URI = ''

@@ -3,6 +3,8 @@
 
 en:
   hello: "Hello World"
+  site_title: "Hot Weibo Analytics"
   login: "Login"
   help_us: "Help Us"
   logout: "Logout"
+  add: "Get Analytics"

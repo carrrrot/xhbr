@@ -1,5 +1,7 @@
 cn:
   hello: "世界你好"
+  site_title: "小伙伴儿的微博们"
   login: "登录"
   help_us: "帮助我们"
   logout: "登出"
+  add: "添加"

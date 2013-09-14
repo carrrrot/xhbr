@@ -1,4 +1,4 @@
-#source 'http://ruby.taobao.org'
+# source 'http://ruby.taobao.org'
 source 'https://rubygems.org'
 
 gem 'rails', '3.2.9'
@@ -16,9 +16,9 @@ group :assets do
 end
 
 group :development, :test do
-	gem 'pry'
+  gem 'pry'
   gem 'pry-nav'
-	gem 'rspec-rails'
+  gem 'rspec-rails'
 end
 
 # To use ActiveModel has_secure_password

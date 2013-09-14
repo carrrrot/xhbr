@@ -1,0 +1,49 @@
+// Place all the styles related to the WbStatuses controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+body {
+  padding: 20px;
+}
+
+.navbar {
+   .brand {
+    color: #000000;
+   }
+   .nav > li > a {
+    color: #777777;
+   }
+}
+
+.center {
+  text-align: center;
+}
+
+.leader {
+  margin-bottom: 3em;
+  h1 {
+    font-size: 36px;
+  }
+  p {
+    color: #888;
+    font-size: 18px;
+  }
+}
+
+.try {
+  border: solid 1px #ccc;
+  border-radius: 4px;
+  margin-bottom: 3em;
+  width: 640px;
+  margin-left: auto;
+  margin-right: auto;
+  background: #eee;
+  padding: 0em 1em 1em;
+  h1 {
+    font-size: 32px;
+  }
+  p {
+    color: #888;
+    font-size: 18px;
+  }
+}

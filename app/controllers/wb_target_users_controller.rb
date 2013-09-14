@@ -1,5 +1,5 @@
-class WbStatusesController < ApplicationController
-  include ApplicationHelper
+class WbTargetUsersController < ApplicationController
+	include ApplicationHelper
 
   before_filter :check_login, except: [:login]
 
@@ -65,5 +65,8 @@ class WbStatusesController < ApplicationController
     @wb_user.save!
     # session[:user] = @user
     redirect_to help_path
+  end
+
+  def add_target_user
   end
 end
