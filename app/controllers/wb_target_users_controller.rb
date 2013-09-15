@@ -102,4 +102,11 @@ class WbTargetUsersController < ApplicationController
 
     redirect_to root_path
   end
+
+  def show
+    @wb_target_user = WbTargetUser.where("wb_id = ?", params[:id]).first
+    respond_to do |format|
+      format.html 
+    end
+  end
 end

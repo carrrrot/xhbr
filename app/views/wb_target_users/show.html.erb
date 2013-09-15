@@ -1,0 +1,21 @@
+<div class="section">
+	<div id="user-info" style="background: url(<%= @wb_target_user.profile_img_link%>) 0 0 no-repeat;">
+		<h2><%= @wb_target_user.name%><small><%= @wb_target_user.verified_reason%></small></h2>
+		<p><%= t("followers_count_prefix")%><%= @wb_target_user.followers_count%> <%= t("followers_count_suffix")%> <%= t("statuses_count_prefix")%><%= @wb_target_user.statuses_count%> <%= t("statuses_count_suffix")%></p>
+	</div>
+</div>
+<div class="section">
+	<div id="followers-count">
+		<h3><%= t("followers_count_title")%></h3>
+	</div>
+</div>
+<div class="section">
+	<div id="statuses-summary">
+		<h3><%= t("statuses_summary_title")%></h3>
+	</div>
+</div>
+<div class="section">
+	<div id="recent-statuses">
+		<h3><%= t("recent_statuses_title")%></h3>
+	</div>
+</div>

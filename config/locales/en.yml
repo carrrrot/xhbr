@@ -7,4 +7,17 @@ en:
   login: "Login"
   help_us: "Help Us"
   logout: "Logout"
+
   add: "Get Analytics"
+  index_title: "Real-time Weibo Analytics"
+  add_target_user: "Try it out"
+  add_step: "Find a user you want to analyze on Weibo and paste the link below"
+  try_others: "Or view one of these"
+
+  followers_count_prefix: ""
+  followers_count_suffix: "followers"
+  statuses_count_prefix: ""
+  statuses_count_suffix: "statuses"
+  followers_count_title: "Followers Per Hour"
+  statuses_summary_title: "Status Summary"
+  recent_statuses_title: "Recent Status"

@@ -88,3 +88,20 @@ body {
     }
   }
 }
+
+.section {
+  margin-bottom: 40px;
+  padding: 5px 20px 20px 20px;
+  background-color: #eee;
+}
+
+#user-info {
+  background-size: 180px auto;
+  padding-left: 200px;
+  min-height: 180px;
+  margin-bottom: 20px;
+  
+  small {
+    padding-left: 20px;
+  }
+}

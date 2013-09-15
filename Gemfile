@@ -6,6 +6,7 @@ gem 'mysql2'
 gem 'twitter-bootstrap-rails'
 gem 'jquery-rails'
 gem 'weibo_2', '~> 0.1.4'
+gem 'typhoeus'
 
 gem 'oauth2'
 gem 'rest-client'

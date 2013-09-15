@@ -137,6 +137,8 @@ GEM
       execjs
       rails (>= 3.1)
       railties (>= 3.1)
+    typhoeus (0.3.3)
+      mime-types
     tzinfo (0.3.37)
     uglifier (2.2.1)
       execjs (>= 0.3.0)
@@ -162,5 +164,6 @@ DEPENDENCIES
   rspec-rails
   sass-rails (~> 3.2.3)
   twitter-bootstrap-rails
+  typhoeus
   uglifier (>= 1.0.3)
   weibo_2 (~> 0.1.4)

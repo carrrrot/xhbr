@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130914184130) do
+ActiveRecord::Schema.define(:version => 20130915131511) do
 
   create_table "wb_access_tokens", :force => true do |t|
     t.integer  "wb_user_id", :limit => 8, :null => false
@@ -83,6 +83,7 @@ ActiveRecord::Schema.define(:version => 20130914184130) do
     t.string   "domain"
   end
 
+  add_index "wb_target_users", ["link"], :name => "index_wb_target_users_on_link", :unique => true
   add_index "wb_target_users", ["wb_id"], :name => "index_wb_target_users_on_wb_id", :unique => true
 
   create_table "wb_users", :force => true do |t|

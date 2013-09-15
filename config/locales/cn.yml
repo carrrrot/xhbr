@@ -4,4 +4,17 @@ cn:
   login: "登录"
   help_us: "帮助我们"
   logout: "登出"
+
   add: "添加"
+  index_title: "热门微博实时分析"
+  add_target_user: "添加微博账号"
+  add_step: "复制想分析的微博账号的地址并粘贴至此"
+  try_others: "或者，瞧瞧这些……"
+
+  followers_count_prefix: "拥有"
+  followers_count_suffix: "个粉丝"
+  statuses_count_prefix: "已发布"
+  statuses_count_suffix: "条微博"
+  followers_count_title: "粉丝增长趋势"
+  statuses_summary_title: "微博分析"
+  recent_statuses_title: "最新微博"
