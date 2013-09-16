@@ -1,7 +1,7 @@
 module WbTargetUsersHelper
   def parse_user_url(url)
     uri = URI.parse(url.to_s.strip.downcase) rescue nil
-    if uri and uri.host =~ /\A(www|e\.)?weibo\.com\Z/ and match = path_match(uri)
+    if uri and uri.host =~ /\A(www\.|e\.)?weibo\.com\Z/ and match = path_match(uri)
       if /\A\d*\Z/.match(match)
       	wb_id = match
       else
@@ -11,7 +11,6 @@ module WbTargetUsersHelper
       wb_id = nil
       domain = nil
     end
-    # [wb_id, domain]
     {"wb_id" => wb_id, "domain" => domain}
   end
 
