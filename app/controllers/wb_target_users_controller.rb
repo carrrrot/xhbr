@@ -1,6 +1,7 @@
 class WbTargetUsersController < ApplicationController
 	include ApplicationHelper
   include WbTargetUsersHelper
+  include Fetch
 
   before_filter :check_login, except: [:login]
 
@@ -80,7 +81,8 @@ class WbTargetUsersController < ApplicationController
     @wb_target_user = WbTargetUser.where("wb_id = ? or lower(replace(domain, '.', '')) = replace(?, '.', '')", wb_id, domain).first
 
     if !@wb_target_user
-      access_token = WbAccessToken.first # need to randomize the access_token
+      # access_token = WbAccessToken.first # need to randomize the access_token
+      access_token = Fetch.random_access_token
       client = WeiboOAuth2::Client.new
       client.get_token_from_hash({:access_token => access_token.value, :expires_at => access_token.expires_at}) 
       # network issue !!!!!
@@ -98,6 +100,9 @@ class WbTargetUsersController < ApplicationController
       @wb_target_user = WbTargetUser.new
       @wb_target_user.set_api_user(api_user)
       @wb_target_user.save!
+
+      access_token.success_count += 1
+      access_token.save!
     end
 
     redirect_to root_path
@@ -105,6 +110,22 @@ class WbTargetUsersController < ApplicationController
 
   def show
     @wb_target_user = WbTargetUser.where("wb_id = ?", params[:id]).first
+    frames = @wb_target_user.wb_target_user_frames.order("created_at asc").where("followers_per_hour is not null")
+    data = Array.new
+    frames.each do |frame|
+      data.push [frame.created_at, frame.followers_per_hour]
+    end
+    # data.unshift([Time.now - 7.days, 0])
+
+    @followers_count_chart = LazyHighCharts::HighChart.new('followers_count_chart') do |f|
+      f.chart(:type => 'spline', :marginBottom => 75)
+      f.xAxis(:type => 'datetime', :endOnTick => true)
+      # f.xAxis(:type => 'datetime', :tickInterval => 24 * 3600 * 1000, :dateTimeLabelFormats => {:day => '%e. %b'})
+      f.series(:data => data, :name => 'followers_per_hour', :pointStart => Time.now - 7.days, :pointInterval => 3600*1000)
+      # f.series(:data => data, :name => 'followers_per_hour')
+    end
+    # binding.pry
+
     respond_to do |format|
       format.html 
     end

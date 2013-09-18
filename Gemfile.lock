@@ -43,6 +43,7 @@ GEM
     execjs (2.0.1)
     faraday (0.8.8)
       multipart-post (~> 1.2.0)
+    hash-deep-merge (0.1.1)
     hashie (2.0.5)
     hike (1.2.3)
     httpauth (0.2.0)
@@ -54,6 +55,9 @@ GEM
     json (1.8.0)
     jwt (0.1.8)
       multi_json (>= 1.5)
+    lazy_high_charts (1.4.3)
+      bundler (>= 1.0)
+      hash-deep-merge
     mail (2.4.4)
       i18n (>= 0.4.0)
       mime-types (~> 1.16)
@@ -121,6 +125,7 @@ GEM
       railties (~> 3.2.0)
       sass (>= 3.1.10)
       tilt (~> 1.3)
+    seed_dump (0.6.0)
     slop (3.4.6)
     sprockets (2.2.2)
       hike (~> 1.2)
@@ -155,6 +160,7 @@ PLATFORMS
 DEPENDENCIES
   coffee-rails (~> 3.2.1)
   jquery-rails
+  lazy_high_charts
   mysql2
   oauth2
   pry
@@ -163,6 +169,7 @@ DEPENDENCIES
   rest-client
   rspec-rails
   sass-rails (~> 3.2.3)
+  seed_dump
   twitter-bootstrap-rails
   typhoeus
   uglifier (>= 1.0.3)

@@ -7,6 +7,7 @@ gem 'twitter-bootstrap-rails'
 gem 'jquery-rails'
 gem 'weibo_2', '~> 0.1.4'
 gem 'typhoeus'
+gem 'lazy_high_charts'
 
 gem 'oauth2'
 gem 'rest-client'
@@ -24,6 +25,7 @@ group :development, :test do
   gem 'pry'
   gem 'pry-nav'
   gem 'rspec-rails'
+  gem 'seed_dump'
 end
 
 # To use ActiveModel has_secure_password

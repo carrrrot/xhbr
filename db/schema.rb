@@ -11,14 +11,16 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130915131511) do
+ActiveRecord::Schema.define(:version => 20130918082929) do
 
   create_table "wb_access_tokens", :force => true do |t|
-    t.integer  "wb_user_id", :limit => 8, :null => false
-    t.string   "value",                   :null => false
-    t.integer  "expires_at",              :null => false
-    t.datetime "created_at",              :null => false
-    t.datetime "updated_at",              :null => false
+    t.integer  "wb_user_id",    :limit => 8,                :null => false
+    t.string   "value",                                     :null => false
+    t.integer  "expires_at",                                :null => false
+    t.datetime "created_at",                                :null => false
+    t.datetime "updated_at",                                :null => false
+    t.integer  "success_count",              :default => 0, :null => false
+    t.integer  "error_count",                :default => 0, :null => false
   end
 
   add_index "wb_access_tokens", ["wb_user_id"], :name => "index_wb_access_tokens_on_wb_user_id"
