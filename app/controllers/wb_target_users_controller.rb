@@ -112,19 +112,28 @@ class WbTargetUsersController < ApplicationController
     @wb_target_user = WbTargetUser.where("wb_id = ?", params[:id]).first
     frames = @wb_target_user.wb_target_user_frames.order("created_at asc").where("followers_per_hour is not null")
     data = Array.new
+    point_start = frames[0].created_at.to_time
     frames.each do |frame|
-      data.push [frame.created_at, frame.followers_per_hour]
+      data.push [convert_time_to_js_code(frame.created_at.to_time), frame.followers_per_hour.to_i]
     end
-    # data.unshift([Time.now - 7.days, 0])
 
     @followers_count_chart = LazyHighCharts::HighChart.new('followers_count_chart') do |f|
-      f.chart(:type => 'spline', :marginBottom => 75)
-      f.xAxis(:type => 'datetime', :endOnTick => true)
-      # f.xAxis(:type => 'datetime', :tickInterval => 24 * 3600 * 1000, :dateTimeLabelFormats => {:day => '%e. %b'})
-      f.series(:data => data, :name => 'followers_per_hour', :pointStart => Time.now - 7.days, :pointInterval => 3600*1000)
-      # f.series(:data => data, :name => 'followers_per_hour')
-    end
-    # binding.pry
+      f.chart({
+        type: 'spline'
+        })
+      f.xAxis({
+        type: 'datetime'
+        })
+      f.tooltip({
+        xDateFormat: '%m-%d %H:%M:%S'
+        })
+      f.series({
+        name: 'followers_per_hour',
+        data: data,
+        pointStart: point_start,
+        pointInterval: 60 * 1000
+        })
+    end if data
 
     respond_to do |format|
       format.html 

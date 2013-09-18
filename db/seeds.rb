@@ -9,15 +9,15 @@ WbAccessToken.create([
 
 
 
-WbStatus.create([
-  { :wb_target_user_id => nil, :wb_id => nil, :wb_mid => nil, :wb_idstr => nil, :posted_at => nil, :message => "", :attitudes_count => nil, :comments_count => nil, :reposts_count => nil, :thumbnail_pic => nil, :created_at => nil, :updated_at => nil }
-], :without_protection => true )
+# WbStatus.create([
+#   { :wb_target_user_id => nil, :wb_id => nil, :wb_mid => nil, :wb_idstr => nil, :posted_at => nil, :message => "", :attitudes_count => nil, :comments_count => nil, :reposts_count => nil, :thumbnail_pic => nil, :created_at => nil, :updated_at => nil }
+# ], :without_protection => true )
 
 
 
-WbStatusFrame.create([
-  { :wb_status_id => nil, :attitudes_count => nil, :comments_count => nil, :reposts_count => nil, :created_at => nil, :updated_at => nil }
-], :without_protection => true )
+# WbStatusFrame.create([
+#   { :wb_status_id => nil, :attitudes_count => nil, :comments_count => nil, :reposts_count => nil, :created_at => nil, :updated_at => nil }
+# ], :without_protection => true )
 
 
 

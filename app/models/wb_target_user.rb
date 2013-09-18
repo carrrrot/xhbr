@@ -1,7 +1,7 @@
 class WbTargetUser < ActiveRecord::Base
   has_many :wb_statuses, dependent: :destroy
   has_many :wb_target_user_frames, dependent: :destroy
-  accepts_nested_attributes_for :wb_target_user_frames
+  accepts_nested_attributes_for :wb_target_user_frames, :wb_statuses
 
   def set_api_user(api_user)
     self.wb_id = api_user["id"]

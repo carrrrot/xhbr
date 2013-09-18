@@ -1,5 +1,5 @@
-# source 'http://ruby.taobao.org'
-source 'https://rubygems.org'
+source 'http://ruby.taobao.org'
+# source 'https://rubygems.org'
 
 gem 'rails', '3.2.9'
 gem 'mysql2'
@@ -7,7 +7,7 @@ gem 'twitter-bootstrap-rails'
 gem 'jquery-rails'
 gem 'weibo_2', '~> 0.1.4'
 gem 'typhoeus'
-gem 'lazy_high_charts'
+gem 'lazy_high_charts', :git => 'git://github.com/carrrrot/lazy_high_charts.git', :branch => 'master'
 
 gem 'oauth2'
 gem 'rest-client'

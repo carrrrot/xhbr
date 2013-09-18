@@ -19,4 +19,8 @@ module WbTargetUsersHelper
     path = uri.fragment.to_s.gsub(/\A!\//, "") if path == "/"
     /\A\/u\/(\d*)|\/(\w+)\/profile|([a-z0-9\.\-]+)\Z/.match(path).to_a.select {|e| e}[-1]
   end
+
+  def convert_time_to_js_code(time)
+    "Date.UTC(#{time.year}, #{time.month - 1}, #{time.day}, #{time.hour}, #{time.min}, #{time.sec})".js_code
+  end
 end
