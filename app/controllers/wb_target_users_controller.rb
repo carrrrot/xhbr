@@ -4,6 +4,7 @@ class WbTargetUsersController < ApplicationController
   include Fetch
 
   before_filter :check_login, except: [:login]
+  before_filter :set_time_zone
 
   WeiboOAuth2::Config.api_key = API_KEY
   WeiboOAuth2::Config.api_secret = API_SECRET
@@ -134,6 +135,8 @@ class WbTargetUsersController < ApplicationController
         pointInterval: 60 * 1000
         })
     end if data
+
+    @wb_statuses = @wb_target_user.wb_statuses.reverse
 
     respond_to do |format|
       format.html 

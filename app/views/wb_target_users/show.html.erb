@@ -18,5 +18,11 @@
 <div class="section">
 	<div id="recent-statuses">
 		<h3><%= t("recent_statuses_title")%></h3>
+		<% @wb_statuses.each do |status| %>
+		<li><%= status.message%></li>
+		<li><%= status.attitudes_count%></li>
+		<li><%= status.comments_count%></li>
+		<li><%= status.reposts_count%></li>
+		<% end %>
 	</div>
 </div>

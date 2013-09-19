@@ -23,4 +23,9 @@ module WbTargetUsersHelper
   def convert_time_to_js_code(time)
     "Date.UTC(#{time.year}, #{time.month - 1}, #{time.day}, #{time.hour}, #{time.min}, #{time.sec})".js_code
   end
+
+  def set_time_zone
+    default = "Beijing"
+    Time.zone = (cookies[:tz] || default) rescue default
+  end
 end

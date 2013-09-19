@@ -6,7 +6,7 @@ namespace :fetch do
 
   task :status => :environment do
     include Fetch
-    fetch_statuses(WbTargetUser.all)
+    fetch_statuses(WbStatus.all)
   end
 
   task :aaa => :environment do
