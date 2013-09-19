@@ -138,6 +138,49 @@ class WbTargetUsersController < ApplicationController
 
     @wb_statuses = @wb_target_user.wb_statuses.reverse
 
+    @wb_status_chart = Hash.new
+    @wb_statuses.each do |status|
+      status_frames = status.wb_status_frames.order("created_at asc")
+      attitude_data = Array.new
+      comment_data = Array.new
+      repost_data = Array.new
+      point_start = status_frames[0].created_at.to_time
+      status_frames.each do |frame|
+        attitude_data.push [convert_time_to_js_code(frame.created_at.to_time), frame.attitudes_count]
+        comment_data.push [convert_time_to_js_code(frame.created_at.to_time), frame.comments_count]
+        repost_data.push [convert_time_to_js_code(frame.created_at.to_time), frame.reposts_count]
+      end
+      @wb_status_chart[status.wb_id] = LazyHighCharts::HighChart.new('status_chart') do |f|
+        f.chart({
+          type: 'spline'
+          })
+        f.xAxis({
+          type: 'datetime'
+          })
+        f.tooltip({
+          xDateFormat: '%m-%d %H:%M:%S'
+          })
+        f.series({
+          name: 'attitudes_count',
+          data: attitude_data,
+          pointStart: point_start,
+          pointInterval: 60 * 1000
+          })
+        f.series({
+          name: 'comments_count',
+          data: comment_data,
+          pointStart: point_start,
+          pointInterval: 60 * 1000
+          })
+        f.series({
+          name: 'reposts_count',
+          data: repost_data,
+          pointStart: point_start,
+          pointInterval: 60 * 1000
+          })
+      end
+    end
+
     respond_to do |format|
       format.html 
     end

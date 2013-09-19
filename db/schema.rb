@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130919072326) do
+ActiveRecord::Schema.define(:version => 20130919200426) do
 
   create_table "wb_access_tokens", :force => true do |t|
     t.integer  "wb_user_id",    :limit => 8,                :null => false
@@ -48,6 +48,7 @@ ActiveRecord::Schema.define(:version => 20130919072326) do
     t.integer  "reposts_count",                  :null => false
     t.datetime "created_at",                     :null => false
     t.datetime "updated_at",                     :null => false
+    t.float    "sentiment"
   end
 
   add_index "wb_statuses", ["wb_id"], :name => "index_wb_statuses_on_wb_id", :unique => true

@@ -105,3 +105,46 @@ body {
     padding-left: 20px;
   }
 }
+
+#recent-statuses {
+  padding-left: 0px;
+  list-style-type: none;
+
+  li {
+    @include clearfix;
+    margin-bottom: 40px;
+  }
+
+  .status {
+    width: 340px;
+    padding: 0px 20px;
+    border: solid 1px #ccc;
+    border-radius: 4px;
+  }
+
+  .message {
+    font-size: 14px;
+    overflow: hidden;
+  }
+
+  .count {
+    color: #888;
+  }
+
+  .view-status {
+    float: right;
+    margin-top: -4px;
+    color: #333;
+  }
+
+  .chart-container {
+    float: right;
+    width: 500px;
+    text-align: center;
+    font-size: 14px;
+    span {
+      margin-left: 20px;
+      margin-right: 20px;
+    }
+  }
+}

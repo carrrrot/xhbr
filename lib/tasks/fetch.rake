@@ -9,8 +9,13 @@ namespace :fetch do
     fetch_statuses(WbStatus.all)
   end
 
-  task :aaa => :environment do
+  # task :aaa => :environment do
+  #   include Fetch
+  #   fetch_target_user_by_id(WbTargetUser.find(10))
+  # end
+
+  task :status_sentiment => :environment do
     include Fetch
-    fetch_target_user_by_id(WbTargetUser.find(10))
+    fetch_statuses_sentiment(WbStatus.where("sentiment is null").all)
   end
 end

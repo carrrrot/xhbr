@@ -1,28 +1,37 @@
 <div class="section">
-	<div id="user-info" style="background: url(<%= @wb_target_user.profile_img_link%>) 0 0 no-repeat;">
-		<h2><%= @wb_target_user.name%><small><%= @wb_target_user.verified_reason%></small></h2>
-		<p><%= t("followers_count_prefix")%><%= @wb_target_user.followers_count%> <%= t("followers_count_suffix")%> <%= t("statuses_count_prefix")%><%= @wb_target_user.statuses_count%> <%= t("statuses_count_suffix")%></p>
-	</div>
+  <div id="user-info" style="background: url(<%= @wb_target_user.profile_img_link%>) 0 0 no-repeat;">
+    <h2><%= @wb_target_user.name%><small><%= @wb_target_user.verified_reason%></small></h2>
+    <p><%= t("followers_count_prefix")%><%= @wb_target_user.followers_count%> <%= t("followers_count_suffix")%> <%= t("statuses_count_prefix")%><%= @wb_target_user.statuses_count%> <%= t("statuses_count_suffix")%></p>
+  </div>
 </div>
 <div class="section">
-	<div id="followers-count">
-		<h3><%= t("followers_count_title")%></h3>
-		<%= high_chart("followers_count_chart", @followers_count_chart) %>
-	</div>
+  <div id="followers-count">
+    <h3><%= t("followers_count_title")%></h3>
+    <%= high_chart("followers_count_chart", @followers_count_chart) %>
+  </div>
 </div>
 <div class="section">
-	<div id="statuses-summary">
-		<h3><%= t("statuses_summary_title")%></h3>
-	</div>
+  <div id="statuses-summary">
+    <h3><%= t("statuses_summary_title")%></h3>
+  </div>
 </div>
 <div class="section">
-	<div id="recent-statuses">
-		<h3><%= t("recent_statuses_title")%></h3>
-		<% @wb_statuses.each do |status| %>
-		<li><%= status.message%></li>
-		<li><%= status.attitudes_count%></li>
-		<li><%= status.comments_count%></li>
-		<li><%= status.reposts_count%></li>
-		<% end %>
-	</div>
+  <div id="recent-statuses">
+    <h3><%= t("recent_statuses_title")%></h3>
+    <ul id="recent-statuses">
+      <% @wb_statuses.each do |status| %>
+      <li>
+        <div class="chart-container">
+          <%= high_chart("status_chart#{status.wb_id}", @wb_status_chart[status.wb_id]) %>
+        </div>
+        <div class="status">
+          <p><%= link_to status.posted_at.strftime("%Y-%m-%d %T"), "javaScript:void(0);", class: "view-post btn btn-small"%></p>
+          <p class="message"><%= status.message%></p>
+          <p class="count"><%= status.attitudes_count%>个赞；<%= status.comments_count%>条评论；<%= status.reposts_count%>次转发；</p>
+          <p class="count">得到<%= status.sentiment ? status.sentiment : 0 %>的情感分值</p>
+        </div>
+      </li>
+      <% end %>
+    </ul>
+  </div>
 </div>

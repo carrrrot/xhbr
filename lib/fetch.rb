@@ -36,20 +36,20 @@ module Fetch
     end
   end
 
-  def fetch_target_user_by_id(wb_target_user)
-    wb_id = wb_target_user.wb_id
-    access_token = Fetch.random_access_token
-    binding.pry
-    body = RestClient.get 'https://api.weibo.com/2/users/show.json', {:params => {:access_token => access_token.value, :uid => wb_id}}
-    api_user = JSON(body)
-    binding.pry
-    wb_target_user.set_api_user(api_user)
-    wb_target_user.wb_target_user_frames.create(followers_count: api_user["followers_count"], statuses_count: api_user["statuses_count"])
-    wb_target_user.save!
+  # def fetch_target_user_by_id(wb_target_user)
+  #   wb_id = wb_target_user.wb_id
+  #   access_token = Fetch.random_access_token
+  #   binding.pry
+  #   body = RestClient.get 'https://api.weibo.com/2/users/show.json', {:params => {:access_token => access_token.value, :uid => wb_id}}
+  #   api_user = JSON(body)
+  #   binding.pry
+  #   wb_target_user.set_api_user(api_user)
+  #   wb_target_user.wb_target_user_frames.create(followers_count: api_user["followers_count"], statuses_count: api_user["statuses_count"])
+  #   wb_target_user.save!
 
-    access_token.success_count += 1
-    access_token.save!
-  end
+  #   access_token.success_count += 1
+  #   access_token.save!
+  # end
 
   def fetch_statuses(statuses)
     statuses.each do |status|
@@ -64,6 +64,17 @@ module Fetch
       status.save!
       access_token.success_count += 1
       access_token.save!
+    end
+  end
+
+  def fetch_statuses_sentiment(statuses)
+    # cannot use bulk_sentiment because of all the sentiment score will be 1
+    repustate = Repustate.new(REPUSTATE_API_KEY)
+    statuses.each do |status|
+      binding.pry
+      body = repustate.sentiment(:text => status.message, :lang => 'zh')
+      status.sentiment = body["score"] if body["status"]=="OK"
+      status.save!
     end
   end
 end
