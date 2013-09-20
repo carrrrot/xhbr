@@ -18,3 +18,12 @@ cn:
   followers_count_title: "粉丝增长趋势"
   statuses_summary_title: "微博分析"
   recent_statuses_title: "最新微博"
+
+  attitudes_count_prefix: ""
+  attitudes_count_suffix: "个赞；"
+  comments_count_prefix: ""
+  comments_count_suffix: "条评论；"
+  reposts_count_prefix: ""
+  reposts_count_suffix: "次转发；"
+  sentiment_score_prefix: "得到"
+  sentiment_score_suffix: "的情感分值"

@@ -27,8 +27,8 @@
         <div class="status">
           <p><%= link_to status.posted_at.strftime("%Y-%m-%d %T"), "javaScript:void(0);", class: "view-post btn btn-small"%></p>
           <p class="message"><%= status.message%></p>
-          <p class="count"><%= status.attitudes_count%>个赞；<%= status.comments_count%>条评论；<%= status.reposts_count%>次转发；</p>
-          <p class="count">得到<%= status.sentiment ? status.sentiment : 0 %>的情感分值</p>
+          <p class="count"><%= t("attitudes_count_prefix")%><%= status.attitudes_count%><%= t("attitudes_count_suffix")%><%= t("comments_count_prefix")%><%= status.comments_count%><%= t("comments_count_suffix")%><%= t("reposts_count_prefix")%><%= status.reposts_count%><%= t("reposts_count_suffix")%></p>
+          <p class="count"><%= t("sentiment_score_prefix")%><%= status.sentiment ? status.sentiment : 0 %><%= t("sentiment_score_suffix")%></p>
         </div>
       </li>
       <% end %>

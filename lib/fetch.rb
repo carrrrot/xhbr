@@ -13,7 +13,7 @@ module Fetch
       binding.pry
       body = RestClient.get 'https://api.weibo.com/2/users/show.json', {:params => {:access_token => access_token.value, :uid => wb_id}}
       api_user = JSON(body)
-      binding.pry
+      # binding.pry
 
       wb_target_user.set_api_user(api_user)
       wb_target_user.wb_target_user_frames.create(followers_count: api_user["followers_count"], statuses_count: api_user["statuses_count"])
@@ -58,7 +58,7 @@ module Fetch
       binding.pry
       body = RestClient.get 'https://api.weibo.com/2/statuses/show.json', {:params => {:access_token => access_token.value, :id => wb_id}}
       api_status = JSON(body)
-      binding.pry
+      # binding.pry
       status.set_api_status(api_status)
       status.wb_status_frames.create(attitudes_count: api_status["attitudes_count"], comments_count: api_status["comments_count"], reposts_count: api_status["reposts_count"])
       status.save!

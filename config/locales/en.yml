@@ -21,3 +21,12 @@ en:
   followers_count_title: "Followers Per Hour"
   statuses_summary_title: "Status Summary"
   recent_statuses_title: "Recent Status"
+
+  attitudes_count_prefix: "Likes: "
+  attitudes_count_suffix: ""
+  comments_count_prefix: "Comments: "
+  comments_count_suffix: ""
+  reposts_count_prefix: "Reposts: "
+  reposts_count_suffix: ""
+  sentiment_score_prefix: "Sentiment Score: "
+  sentiment_score_suffix: ""

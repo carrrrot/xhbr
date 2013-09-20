@@ -12,7 +12,6 @@ class WbTargetUsersController < ApplicationController
 
   def index
     @wb_target_users = Rails.cache.fetch "index_target_users" do
-      # binding.pry
       WbTargetUser.limit(6).order("followers_count desc")
     end
   end
@@ -113,9 +112,9 @@ class WbTargetUsersController < ApplicationController
     @wb_target_user = WbTargetUser.where("wb_id = ?", params[:id]).first
     frames = @wb_target_user.wb_target_user_frames.order("created_at asc").where("followers_per_hour is not null")
     data = Array.new
-    point_start = frames[0].created_at.to_time
+    point_start = frames[0].created_at.to_time.getlocal
     frames.each do |frame|
-      data.push [convert_time_to_js_code(frame.created_at.to_time), frame.followers_per_hour.to_i]
+      data.push [convert_time_to_js_code(frame.created_at.to_time.getlocal), frame.followers_per_hour.to_i]
     end
 
     @followers_count_chart = LazyHighCharts::HighChart.new('followers_count_chart') do |f|
@@ -144,12 +143,13 @@ class WbTargetUsersController < ApplicationController
       attitude_data = Array.new
       comment_data = Array.new
       repost_data = Array.new
-      point_start = status_frames[0].created_at.to_time
+      point_start = status_frames[0].created_at.to_time.getlocal
       status_frames.each do |frame|
-        attitude_data.push [convert_time_to_js_code(frame.created_at.to_time), frame.attitudes_count]
-        comment_data.push [convert_time_to_js_code(frame.created_at.to_time), frame.comments_count]
-        repost_data.push [convert_time_to_js_code(frame.created_at.to_time), frame.reposts_count]
+        attitude_data.push [convert_time_to_js_code(frame.created_at.to_time.getlocal), frame.attitudes_count]
+        comment_data.push [convert_time_to_js_code(frame.created_at.to_time.getlocal), frame.comments_count]
+        repost_data.push [convert_time_to_js_code(frame.created_at.to_time.getlocal), frame.reposts_count]
       end
+      
       @wb_status_chart[status.wb_id] = LazyHighCharts::HighChart.new('status_chart') do |f|
         f.chart({
           type: 'spline'
