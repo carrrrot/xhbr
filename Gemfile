@@ -1,5 +1,5 @@
-source 'http://ruby.taobao.org'
-# source 'https://rubygems.org'
+# source 'http://ruby.taobao.org'
+source 'https://rubygems.org'
 
 gem 'rails', '3.2.9'
 gem 'mysql2'
@@ -11,6 +11,7 @@ gem 'lazy_high_charts', :git => 'git://github.com/carrrrot/lazy_high_charts.git'
 
 gem 'oauth2'
 gem 'rest-client'
+gem 'rb-readline'
 # gem 'hashie'
 
 # Gems used only for assets and not required
