@@ -47,13 +47,16 @@ class WbTargetUsersController < ApplicationController
     wb_id = session[:uid] = access_token.params["uid"]
     token_value = session[:access_token] = access_token.token
     expires_at = session[:expires_at] = access_token.expires_at
-    user = client.users.show_by_uid(session[:uid].to_i)
+    begin
+      user = client.users.show_by_uid(session[:uid].to_i)
+      @wb_user = WbUser.where(wb_id: wb_id).first_or_initialize
+      @wb_user.name = user.name
 
-    @wb_user = WbUser.where(wb_id: wb_id).first_or_initialize
-    @wb_user.name = user.name
-
-    @wb_user.build_wb_access_token(value: token_value, expires_at: expires_at)
-    @wb_user.save!
+      @wb_user.build_wb_access_token(value: token_value, expires_at: expires_at)
+      @wb_user.save!
+    rescue
+      Rails.logger.error "#{Time.now} get_token error: #{$!}."
+    end
 
     redirect_to help_path
   end
@@ -66,30 +69,37 @@ class WbTargetUsersController < ApplicationController
     @wb_target_user = WbTargetUser.where("wb_id = ? or lower(replace(domain, '.', '')) = replace(?, '.', '')", wb_id, domain).first
 
     if !@wb_target_user
-      access_token = Fetch.random_access_token
-      client = WeiboOAuth2::Client.new
-      client.get_token_from_hash({:access_token => access_token.value, :expires_at => access_token.expires_at}) 
-      # network issue !!!!!
-      # binding.pry
-      if wb_id 
-        # api_user = client.users.show_by_uid(wb_id)
-        body = RestClient.get 'https://api.weibo.com/2/users/show.json', {:params => {:access_token => access_token.value, :uid => wb_id}}
-      elsif domain
-        # api_user = client.users.domain_show(domain)
-        body = RestClient.get 'https://api.weibo.com/2/users/domain_show.json', {:params => {:access_token => access_token.value, :domain => domain}}
+      begin
+        access_token = Fetch.random_access_token
+        # client = WeiboOAuth2::Client.new
+        # client.get_token_from_hash({:access_token => access_token.value, :expires_at => access_token.expires_at}) 
+        # network issue !!!!!
+        if wb_id 
+          # api_user = client.users.show_by_uid(wb_id)
+          body = RestClient.get 'https://api.weibo.com/2/users/show.json', {:params => {:access_token => access_token.value, :uid => wb_id}}
+        elsif domain
+          # api_user = client.users.domain_show(domain)
+          body = RestClient.get 'https://api.weibo.com/2/users/domain_show.json', {:params => {:access_token => access_token.value, :domain => domain}}
+        end
+        api_user = JSON(body)
+
+        @wb_target_user = WbTargetUser.new
+        @wb_target_user.set_api_user(api_user)
+        @wb_target_user.save!
+
+        access_token.success_count += 1
+        @info = "success"
+      rescue
+        # need to add the target_user to a job queue and retry in backgroud
+        Rails.logger.error "#{Time.now} add_target_user error: #{$!}."
+        access_token.error_count += 1
+        @info = "error"
+      ensure
+        access_token.save!
       end
-      api_user = JSON(body)
-      # binding.pry
-
-      @wb_target_user = WbTargetUser.new
-      @wb_target_user.set_api_user(api_user)
-      @wb_target_user.save!
-
-      access_token.success_count += 1
-      access_token.save!
     end
 
-    redirect_to root_path
+    redirect_to action: 'index', created: @info
   end
 
   def show
@@ -158,9 +168,6 @@ class WbTargetUsersController < ApplicationController
           })
       end
     end
-
-    respond_to do |format|
-      format.html 
-    end
   end
+
 end

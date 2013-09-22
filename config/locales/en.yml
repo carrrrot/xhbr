@@ -30,3 +30,7 @@ en:
   reposts_count_suffix: ""
   sentiment_score_prefix: "Sentiment Score: "
   sentiment_score_suffix: ""
+
+  creating_info: "Adding Weibo user"
+  creating_success: "SUCCESS. Please wait 1-2 hours for data updating."
+  creating_error: "FAILED. Please try again later..."

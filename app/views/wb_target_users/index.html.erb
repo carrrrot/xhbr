@@ -1,9 +1,15 @@
 <div class="center">
   <div class="leader">
-    <!-- <h1>Real-time Social Analytics</h1>
-    <p>See how Hot Weibos are performing - updated every 1 hour</p> -->
     <h1><%= t("index_title")%><h1>
     <p>See how Hot Weibos are performing - updated every 1 hour</p>
+  </div>
+  <div class="created_info">
+    <p>
+      <% if params["created"] == "success" || params["created"] == "error"%>
+        <%= t("creating_info")%><%= t("creating_#{params["created"]}")%>
+        <%= link_to_function "x", "$('.created_info').toggle()" %>
+      <% end %>
+    </p>
   </div>
   <div class="try">
     <h1><%= t("add_target_user")%><h1>

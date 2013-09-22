@@ -27,3 +27,7 @@ cn:
   reposts_count_suffix: "次转发；"
   sentiment_score_prefix: "得到"
   sentiment_score_suffix: "的情感分值"
+
+  creating_info: "添加微博账号"
+  creating_success: "成功，请等待1-2小时使数据更新"
+  creating_error: "失败，请稍后再试……"

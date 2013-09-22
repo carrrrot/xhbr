@@ -1,5 +1,7 @@
-<% if @wb_id %>
+<% if @wb_id and @wb_user %>
   Thank you!
+<% elsif @wb_id %>
+	Thank you very much for your help! However, we cannot use your access token because our app has not been approved by Sina Weibo right now...
 <% else %>
   <%= link_to "connect to weibo", action: "connect" %> 
 <% end %>
