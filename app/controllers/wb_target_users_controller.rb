@@ -12,7 +12,7 @@ class WbTargetUsersController < ApplicationController
 
   def index
     @wb_target_users = Rails.cache.fetch "index_target_users" do
-      WbTargetUser.limit(6).order("followers_count desc")
+      WbTargetUser.where(:enabled => true).limit(6).order("followers_count desc")
     end
   end
 
@@ -38,20 +38,6 @@ class WbTargetUsersController < ApplicationController
 
   def connect
     client = WeiboOAuth2::Client.new
-    # binding.pry
-    # if session[:access_token] && !client.authorized?
-    #   token = client.get_token_from_hash({:access_token => session[:access_token], :expires_at => session[:expires_at]}) 
-    #   p "*" * 80 + "validated"
-    #   p token.inspect
-    #   p token.validated?
-      
-    #   unless token.validated?
-    #     reset_session
-    #     redirect client.authorize_url
-    #     return
-    #   end
-    # end
-    # redirect_to help_path
     redirect_to client.authorize_url
   end
 
@@ -65,11 +51,10 @@ class WbTargetUsersController < ApplicationController
 
     @wb_user = WbUser.where(wb_id: wb_id).first_or_initialize
     @wb_user.name = user.name
-    # @wb_user.screen_name = user.screen_name
 
     @wb_user.build_wb_access_token(value: token_value, expires_at: expires_at)
     @wb_user.save!
-    # session[:user] = @user
+
     redirect_to help_path
   end
 
@@ -81,12 +66,11 @@ class WbTargetUsersController < ApplicationController
     @wb_target_user = WbTargetUser.where("wb_id = ? or lower(replace(domain, '.', '')) = replace(?, '.', '')", wb_id, domain).first
 
     if !@wb_target_user
-      # access_token = WbAccessToken.first # need to randomize the access_token
       access_token = Fetch.random_access_token
       client = WeiboOAuth2::Client.new
       client.get_token_from_hash({:access_token => access_token.value, :expires_at => access_token.expires_at}) 
       # network issue !!!!!
-      binding.pry
+      # binding.pry
       if wb_id 
         # api_user = client.users.show_by_uid(wb_id)
         body = RestClient.get 'https://api.weibo.com/2/users/show.json', {:params => {:access_token => access_token.value, :uid => wb_id}}
@@ -95,7 +79,7 @@ class WbTargetUsersController < ApplicationController
         body = RestClient.get 'https://api.weibo.com/2/users/domain_show.json', {:params => {:access_token => access_token.value, :domain => domain}}
       end
       api_user = JSON(body)
-      binding.pry
+      # binding.pry
 
       @wb_target_user = WbTargetUser.new
       @wb_target_user.set_api_user(api_user)
@@ -112,7 +96,6 @@ class WbTargetUsersController < ApplicationController
     @wb_target_user = WbTargetUser.where("wb_id = ?", params[:id]).first
     frames = @wb_target_user.wb_target_user_frames.order("created_at asc").where("followers_per_hour is not null")
     data = Array.new
-    point_start = frames[0].created_at.to_time.getlocal
     frames.each do |frame|
       data.push [convert_time_to_js_code(frame.created_at.to_time.getlocal), frame.followers_per_hour.to_i]
     end
@@ -130,7 +113,6 @@ class WbTargetUsersController < ApplicationController
       f.series({
         name: 'followers_per_hour',
         data: data,
-        pointStart: point_start,
         pointInterval: 60 * 1000
         })
     end if data
@@ -143,7 +125,6 @@ class WbTargetUsersController < ApplicationController
       attitude_data = Array.new
       comment_data = Array.new
       repost_data = Array.new
-      point_start = status_frames[0].created_at.to_time.getlocal
       status_frames.each do |frame|
         attitude_data.push [convert_time_to_js_code(frame.created_at.to_time.getlocal), frame.attitudes_count]
         comment_data.push [convert_time_to_js_code(frame.created_at.to_time.getlocal), frame.comments_count]
@@ -163,19 +144,16 @@ class WbTargetUsersController < ApplicationController
         f.series({
           name: 'attitudes_count',
           data: attitude_data,
-          pointStart: point_start,
           pointInterval: 60 * 1000
           })
         f.series({
           name: 'comments_count',
           data: comment_data,
-          pointStart: point_start,
           pointInterval: 60 * 1000
           })
         f.series({
           name: 'reposts_count',
           data: repost_data,
-          pointStart: point_start,
           pointInterval: 60 * 1000
           })
       end

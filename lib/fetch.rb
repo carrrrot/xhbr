@@ -10,7 +10,7 @@ module Fetch
     target_users.each do |wb_target_user|
       wb_id = wb_target_user.wb_id
       access_token = Fetch.random_access_token
-      binding.pry
+      # binding.pry
       body = RestClient.get 'https://api.weibo.com/2/users/show.json', {:params => {:access_token => access_token.value, :uid => wb_id}}
       api_user = JSON(body)
       # binding.pry
@@ -55,7 +55,7 @@ module Fetch
     statuses.each do |status|
       wb_id = status.wb_id
       access_token = Fetch.random_access_token
-      binding.pry
+      # binding.pry
       body = RestClient.get 'https://api.weibo.com/2/statuses/show.json', {:params => {:access_token => access_token.value, :id => wb_id}}
       api_status = JSON(body)
       # binding.pry
@@ -71,7 +71,7 @@ module Fetch
     # cannot use bulk_sentiment because of all the sentiment score will be 1
     repustate = Repustate.new(REPUSTATE_API_KEY)
     statuses.each do |status|
-      binding.pry
+      # binding.pry
       body = repustate.sentiment(:text => status.message, :lang => 'zh')
       status.sentiment = body["score"] if body["status"]=="OK"
       status.save!

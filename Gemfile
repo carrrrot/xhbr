@@ -11,8 +11,10 @@ gem 'lazy_high_charts', :git => 'git://github.com/carrrrot/lazy_high_charts.git'
 
 gem 'oauth2'
 gem 'rest-client'
+
 gem 'rb-readline'
 # gem 'hashie'
+gem 'whenever', :require => false
 
 # Gems used only for assets and not required
 # in production environments by default.

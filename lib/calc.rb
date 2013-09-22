@@ -16,7 +16,6 @@ module Calc
       WbTargetUserFrame.transaction do
         frames[1..-1].each_with_index do |frame, i|
           next if frame.followers_per_hour
-          # binding.pry
           calc_followers_per_hour_one_frame(frame, frames[i]) # not i-1
           frame.save!
         end

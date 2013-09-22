@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130919200426) do
+ActiveRecord::Schema.define(:version => 20130922083504) do
 
   create_table "wb_access_tokens", :force => true do |t|
     t.integer  "wb_user_id",    :limit => 8,                :null => false
@@ -68,21 +68,22 @@ ActiveRecord::Schema.define(:version => 20130919200426) do
   add_index "wb_target_user_frames", ["wb_target_user_id", "created_at"], :name => "index_wb_target_user_frames_on_wb_target_user_id_and_created_at", :unique => true
 
   create_table "wb_target_users", :force => true do |t|
-    t.integer  "wb_id",            :limit => 8,                :null => false
-    t.string   "name",                                         :null => false
-    t.string   "link",                                         :null => false
-    t.text     "description",                                  :null => false
-    t.string   "profile_img_link",                             :null => false
-    t.integer  "followers_count",               :default => 0, :null => false
+    t.integer  "wb_id",            :limit => 8,                   :null => false
+    t.string   "name",                                            :null => false
+    t.string   "link",                                            :null => false
+    t.text     "description",                                     :null => false
+    t.string   "profile_img_link",                                :null => false
+    t.integer  "followers_count",               :default => 0,    :null => false
     t.integer  "friends_count"
     t.integer  "statuses_count"
     t.integer  "favourites_count"
-    t.boolean  "verified",                                     :null => false
+    t.boolean  "verified",                                        :null => false
     t.text     "verified_reason"
     t.string   "lang"
-    t.datetime "created_at",                                   :null => false
-    t.datetime "updated_at",                                   :null => false
+    t.datetime "created_at",                                      :null => false
+    t.datetime "updated_at",                                      :null => false
     t.string   "domain"
+    t.boolean  "enabled",                       :default => true
   end
 
   add_index "wb_target_users", ["link"], :name => "index_wb_target_users_on_link", :unique => true
