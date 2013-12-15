@@ -131,7 +131,7 @@ class WbTargetUsersController < ApplicationController
 
     @wb_status_chart = Hash.new
     @wb_statuses.each do |status|
-      status_frames = status.wb_status_frames.order("created_at asc")
+      status_frames = status.wb_status_frames.order("created_at asc").where("created_at <= ?", status.posted_at + 7.days)
       attitude_data = Array.new
       comment_data = Array.new
       repost_data = Array.new
