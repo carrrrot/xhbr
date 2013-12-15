@@ -104,7 +104,7 @@ class WbTargetUsersController < ApplicationController
 
   def show
     @wb_target_user = WbTargetUser.where("wb_id = ?", params[:id]).first
-    frames = @wb_target_user.wb_target_user_frames.order("created_at asc").where("followers_per_hour is not null")
+    frames = @wb_target_user.wb_target_user_frames.order("created_at asc").where("followers_per_hour is not null and created_at >= ?", Time.now.utc - 7.days)
     data = Array.new
     frames.each do |frame|
       data.push [convert_time_to_js_code(frame.created_at.to_time.getlocal), frame.followers_per_hour.to_i]
@@ -127,7 +127,7 @@ class WbTargetUsersController < ApplicationController
         })
     end if data
 
-    @wb_statuses = @wb_target_user.wb_statuses.reverse
+    @wb_statuses = @wb_target_user.wb_statuses.reverse_order.limit(20)
 
     @wb_status_chart = Hash.new
     @wb_statuses.each do |status|

@@ -8,7 +8,7 @@ namespace :fetch do
   task :status => :environment do
     include Fetch
     $logger.info "#{Time.now} starting fetching status"
-    fetch_statuses(WbStatus.joins(:wb_target_user).where("wb_target_users.enabled" => true).readonly(false).all)
+    fetch_statuses(WbStatus.joins(:wb_target_user).where("wb_target_users.enabled" => true).where("posted_at >= ?", Time.now.utc - 7.days).readonly(false).all)
   end
 
   # task :aaa => :environment do
